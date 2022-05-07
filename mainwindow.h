@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "factorial.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,7 +16,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_pbFacStart_clicked();
+    void CalculationDone(unsigned long long int result);
+
+    void on_pbFacStop_clicked();
+
 private:
     Ui::MainWindow *ui;
+    Factorial *factorial;
 };
 #endif // MAINWINDOW_H
