@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QObject::connect(&timer, &QTimer::timeout,this, &MainWindow::onTimer);
 }
 
 MainWindow::~MainWindow()
@@ -61,19 +63,24 @@ void MainWindow::on_pbFacStop_clicked()
     ui->pbFacStart->setText("START");
     factorial->terminate();
     delete factorial;
+    timer.stop();
+    facMiliSecs = 0;
 }
 
 short int MainWindow::FacButtonSwitcher()
 {
     if(ui->pbFacStart->text() == "START"){
+        timer.start(100);
         ui->pbFacStart->setText("PAUSE");
         ui->pbFacStop->setEnabled(1);
         return 2;
     } else if (ui->pbFacStart->text() == "PAUSE") {
         ui->pbFacStart->setText("CONTINUE");
+        timer.stop();
         return 1;
     } else { // if (ui->pbFacStart->text() == "CONTINUE")
         ui->pbFacStart->setText("PAUSE");
+        timer.start(100);
         return 0;
     }
 }
@@ -122,5 +129,19 @@ void MainWindow::on_pbEraStop_clicked()
     ui->pbEraStart->setText("START");
     sieve->terminate();
     delete sieve;
+}
+
+void MainWindow::onTimer()
+{
+      facMiliSecs+=100;
+      ui->labelFacUptime->setText(QString::number(facMiliSecs/1000)+ "s");
+//    int secs = facTimerElapsed.elapsed() / 1000;
+//    int mins = (secs / 60) % 60;
+//    int hours = (secs / 3600);
+//    secs = secs % 60;
+//    ui->labelFacUptime->setText(QString("%1:%2:%3")
+//                                .arg(hours, 2, 10, QLatin1Char('0'))
+//                                .arg(mins, 2, 10, QLatin1Char('0'))
+//                                .arg(secs, 2, 10, QLatin1Char('0')) );
 }
 

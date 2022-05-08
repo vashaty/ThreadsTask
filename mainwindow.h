@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "factorial.h"
 #include "sieve.h"
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,11 +28,15 @@ private slots:
 
     void on_pbEraStop_clicked();
 
+    void onTimer();
+
 private:
     short int FacButtonSwitcher();
     short int EraButtonSwitcher();
     Ui::MainWindow *ui;
     Factorial *factorial;
     Sieve *sieve;
+    QTimer timer;
+    int facMiliSecs = 0;
 };
 #endif // MAINWINDOW_H
