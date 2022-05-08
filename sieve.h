@@ -22,6 +22,7 @@ private:
     QVector<unsigned int> arr;
 signals:
     void CalculationDone(QList<unsigned int> results);
+    void UpdateBar(double percentage);
 };
 
 #endif // SIEVE_H

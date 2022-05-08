@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QObject::connect(&timer, &QTimer::timeout,this, &MainWindow::onTimer);
+    QObject::connect(&timerFac, &QTimer::timeout,this, &MainWindow::onTimerFac);
+    QObject::connect(&timerEra, &QTimer::timeout,this, &MainWindow::onTimerEra);
 }
 
 MainWindow::~MainWindow()
@@ -18,14 +19,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pbFacStart_clicked()
 {
-//    if(MainWindow::FacButtonSwitcher()){
-//        factorial = new Factorial(ui->sbFacNum->text().toInt());
-//    } else {
-
-//    }
-
     switch (MainWindow::FacButtonSwitcher()) {
         case 2:
+            facMiliSecs = 0;
             ui->progressBarEra->setValue(0);
             factorial = new Factorial(ui->sbFacNum->text().toInt());
             connect(factorial, &Factorial::CalculationDone, this, &MainWindow::CalculationDoneFac);
@@ -63,31 +59,35 @@ void MainWindow::GetProgressFac(double percentage)
     ui->progressBarFac->setValue((int)percentage);
 }
 
+void MainWindow::GetProgressEra(double percentage)
+{
+    ui->progressBarEra->setValue((int)percentage);
+}
+
 
 void MainWindow::on_pbFacStop_clicked()
 {
+    timerFac.stop();
     ui->pbFacStop->setEnabled(0);
     ui->pbFacStart->setText("START");
     factorial->terminate();
     delete factorial;
-    timer.stop();
-    facMiliSecs = 0;
 }
 
 short int MainWindow::FacButtonSwitcher()
 {
     if(ui->pbFacStart->text() == "START"){
-        timer.start(100);
+        timerFac.start(100);
         ui->pbFacStart->setText("PAUSE");
         ui->pbFacStop->setEnabled(1);
         return 2;
     } else if (ui->pbFacStart->text() == "PAUSE") {
         ui->pbFacStart->setText("CONTINUE");
-        timer.stop();
+        timerFac.stop();
         return 1;
     } else { // if (ui->pbFacStart->text() == "CONTINUE")
         ui->pbFacStart->setText("PAUSE");
-        timer.start(100);
+        timerFac.start(100);
         return 0;
     }
 }
@@ -95,14 +95,17 @@ short int MainWindow::FacButtonSwitcher()
 short MainWindow::EraButtonSwitcher()
 {
     if(ui->pbEraStart->text() == "START"){
+        timerEra.start(100);
         ui->pbEraStart->setText("PAUSE");
         ui->pbEraStop->setEnabled(1);
         return 2;
     } else if (ui->pbEraStart->text() == "PAUSE") {
         ui->pbEraStart->setText("CONTINUE");
+        timerEra.stop();
         return 1;
     } else { // if (ui->pbEraStart->text() == "CONTINUE")
         ui->pbEraStart->setText("PAUSE");
+        timerEra.start(100);
         return 0;
     }
 }
@@ -112,9 +115,11 @@ void MainWindow::on_pbEraStart_clicked()
 {
     switch (MainWindow::EraButtonSwitcher()) {
         case 2:
+            eraMiliSecs = 0;
             ui->textEditEraRes->setText("");
             sieve = new Sieve(ui->sbEraNum->text().toInt());
             connect(sieve, &Sieve::CalculationDone, this, &MainWindow::CalculationDoneSieve);
+            connect(sieve, &Sieve::UpdateBar, this, &MainWindow::GetProgressEra);
             sieve->start();
         break;
         case 1:
@@ -132,23 +137,22 @@ void MainWindow::on_pbEraStart_clicked()
 
 void MainWindow::on_pbEraStop_clicked()
 {
+    timerEra.stop();
     ui->pbEraStop->setEnabled(0);
     ui->pbEraStart->setText("START");
     sieve->terminate();
     delete sieve;
 }
 
-void MainWindow::onTimer()
+void MainWindow::onTimerFac()
 {
       facMiliSecs+=100;
-      ui->labelFacUptime->setText(QString::number(facMiliSecs/1000)+ "s");
-//    int secs = facTimerElapsed.elapsed() / 1000;
-//    int mins = (secs / 60) % 60;
-//    int hours = (secs / 3600);
-//    secs = secs % 60;
-//    ui->labelFacUptime->setText(QString("%1:%2:%3")
-//                                .arg(hours, 2, 10, QLatin1Char('0'))
-//                                .arg(mins, 2, 10, QLatin1Char('0'))
-//                                .arg(secs, 2, 10, QLatin1Char('0')) );
+      ui->labelFacUptime->setText(QString::number((double)facMiliSecs/1000)+ "s");
+}
+
+void MainWindow::onTimerEra()
+{
+    eraMiliSecs+=100;
+    ui->labelEraUptime->setText(QString::number((double)eraMiliSecs/1000)+ "s");
 }
 

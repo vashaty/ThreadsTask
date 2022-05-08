@@ -24,6 +24,7 @@ private slots:
     void CalculationDoneSieve(QList<unsigned int> results);
 
     void GetProgressFac(double percentage);
+    void GetProgressEra(double percentage);
 
     void on_pbFacStop_clicked();
 
@@ -31,7 +32,8 @@ private slots:
 
     void on_pbEraStop_clicked();
 
-    void onTimer();
+    void onTimerFac();
+    void onTimerEra();
 
 private:
     short int FacButtonSwitcher();
@@ -39,7 +41,9 @@ private:
     Ui::MainWindow *ui;
     Factorial *factorial;
     Sieve *sieve;
-    QTimer timer;
+    QTimer timerFac;
+    QTimer timerEra;
     int facMiliSecs = 0;
+    int eraMiliSecs = 0;
 };
 #endif // MAINWINDOW_H
