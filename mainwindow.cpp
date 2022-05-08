@@ -26,8 +26,10 @@ void MainWindow::on_pbFacStart_clicked()
 
     switch (MainWindow::FacButtonSwitcher()) {
         case 2:
+            ui->progressBarEra->setValue(0);
             factorial = new Factorial(ui->sbFacNum->text().toInt());
             connect(factorial, &Factorial::CalculationDone, this, &MainWindow::CalculationDoneFac);
+            connect(factorial, &Factorial::UpdateBar, this, &MainWindow::GetProgressFac);
             factorial->start();
         break;
         case 1:
@@ -54,6 +56,11 @@ void MainWindow::CalculationDoneSieve(QList<unsigned int> results)
         ui->textEditEraRes->append(QString::number(x) + " ");
     }
     MainWindow::on_pbEraStop_clicked();
+}
+
+void MainWindow::GetProgressFac(double percentage)
+{
+    ui->progressBarFac->setValue((int)percentage);
 }
 
 

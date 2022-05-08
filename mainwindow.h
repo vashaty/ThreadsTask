@@ -22,6 +22,9 @@ private slots:
     void on_pbFacStart_clicked();
     void CalculationDoneFac(unsigned long long int result);
     void CalculationDoneSieve(QList<unsigned int> results);
+
+    void GetProgressFac(double percentage);
+
     void on_pbFacStop_clicked();
 
     void on_pbEraStart_clicked();

@@ -18,6 +18,7 @@ protected:
     void run() override;
 signals:
     void CalculationDone(unsigned long long int result);
+    void UpdateBar(double percentage);
 
 };
 

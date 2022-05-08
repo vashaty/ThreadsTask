@@ -20,9 +20,10 @@ void Factorial::run()
     while(temp <= N){
         locked = 1;
         result *= temp;
+        emit UpdateBar((double)temp/(double)N*100);
         temp++;
         locked = 0;
-        msleep(500);
+        msleep(500);      
     }
     emit CalculationDone(result);
 
