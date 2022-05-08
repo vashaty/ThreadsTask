@@ -39,7 +39,7 @@ void Sieve::run()
         if (arr[temp3 - 1] == 0)
             results.append(temp3);
         temp3++;
-        emit UpdateBar(((double)temp1/(double)Range*0.85)+((double)temp3/(double)Range*0.15)*100);
+        emit UpdateBar((((double)temp1/(double)Range*0.85)+((double)temp3/(double)Range*0.15))*100);
         locked = 0;
     }
 
