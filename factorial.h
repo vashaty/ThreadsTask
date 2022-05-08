@@ -7,6 +7,7 @@ class Factorial : public QThread
     Q_OBJECT
 public:
     Factorial(unsigned short int n);
+    ~Factorial();
 private:
     unsigned short int N;
     unsigned short int temp = 1;

@@ -23,6 +23,7 @@ private slots:
     void on_pbFacStop_clicked();
 
 private:
+    short int FacButtonSwitcher();
     Ui::MainWindow *ui;
     Factorial *factorial;
 };

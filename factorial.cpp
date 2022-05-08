@@ -5,11 +5,16 @@ Factorial::Factorial(unsigned short int n)
     N = n;
 }
 
+Factorial::~Factorial()
+{
+
+}
+
 void Factorial::run()
 {
-    for(i = temp;i <= N;++i){
-          result *= i;
-          temp = i;
+    for(;temp <= N;temp++){
+          result *= temp;
+//          sleep(1);
     }
     emit CalculationDone(result);
 

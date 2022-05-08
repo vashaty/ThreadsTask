@@ -16,20 +16,54 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pbFacStart_clicked()
 {
-    factorial = new Factorial(ui->sbFacNum->text().toInt());
+//    if(MainWindow::FacButtonSwitcher()){
+//        factorial = new Factorial(ui->sbFacNum->text().toInt());
+//    } else {
 
-    connect(factorial, &Factorial::CalculationDone, this, &MainWindow::CalculationDone);
-    factorial->start();
+//    }
+
+    switch (MainWindow::FacButtonSwitcher()) {
+        case 2:
+            factorial = new Factorial(ui->sbFacNum->text().toInt());
+            connect(factorial, &Factorial::CalculationDone, this, &MainWindow::CalculationDone);
+            factorial->start();
+        break;
+        case 1:
+            factorial->terminate();
+        break;
+        case 0:
+            factorial->start();
+        break;
+    }
 }
 
 void MainWindow::CalculationDone(unsigned long long int result)
 {
     ui->labelFactResult->setText(QString::number(result));
+    MainWindow::on_pbFacStop_clicked();
 }
 
 
 void MainWindow::on_pbFacStop_clicked()
 {
+    ui->pbFacStop->setEnabled(0);
+    ui->pbFacStart->setText("START");
     factorial->terminate();
+    delete factorial;
+}
+
+short int MainWindow::FacButtonSwitcher()
+{
+    if(ui->pbFacStart->text() == "START"){
+        ui->pbFacStart->setText("PAUSE");
+        ui->pbFacStop->setEnabled(1);
+        return 2;
+    } else if (ui->pbFacStart->text() == "PAUSE") {
+        ui->pbFacStart->setText("CONTINUE");
+        return 1;
+    } else { // if (ui->pbFacStart->text() == "CONTINUE")
+        ui->pbFacStart->setText("PAUSE");
+        return 0;
+    }
 }
 
