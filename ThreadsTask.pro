@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     factorial.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    sieve.cpp
 
 HEADERS += \
     factorial.h \
-    mainwindow.h
+    mainwindow.h \
+    sieve.h
 
 FORMS += \
     mainwindow.ui
