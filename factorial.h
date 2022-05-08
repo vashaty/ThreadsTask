@@ -8,11 +8,12 @@ class Factorial : public QThread
 public:
     Factorial(unsigned short int n);
     ~Factorial();
+    bool isLocked();
 private:
     unsigned short int N;
     unsigned short int temp = 1;
-    unsigned short int i;
     unsigned long long int result = 1;
+    bool locked = 0;
 protected:
     void run() override;
 signals:

@@ -29,6 +29,10 @@ void MainWindow::on_pbFacStart_clicked()
             factorial->start();
         break;
         case 1:
+            while (factorial->isLocked()) {
+
+            }
+//            factorial->exit();
             factorial->terminate();
         break;
         case 0:

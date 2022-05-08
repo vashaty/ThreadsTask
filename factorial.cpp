@@ -10,11 +10,19 @@ Factorial::~Factorial()
 
 }
 
+bool Factorial::isLocked()
+{
+    return locked;
+}
+
 void Factorial::run()
 {
-    for(;temp <= N;temp++){
-          result *= temp;
-//          sleep(1);
+    while(temp <= N){
+        locked = 1;
+        result *= temp;
+        temp++;
+        locked = 0;
+        msleep(500);
     }
     emit CalculationDone(result);
 
