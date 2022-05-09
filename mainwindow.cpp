@@ -94,15 +94,15 @@ short int MainWindow::FacButtonSwitcher()
 {
     if(ui->pbFacStart->text() == "START"){
         timerFac.start(100);
-        ui->pbFacStart->setText("PAUSE");
+        ui->pbFacStart->setText("POZASTAVIT");
         ui->pbFacStop->setEnabled(1);
         return 2;
-    } else if (ui->pbFacStart->text() == "PAUSE") {
-        ui->pbFacStart->setText("CONTINUE");
+    } else if (ui->pbFacStart->text() == "POZASTAVIT") {
+        ui->pbFacStart->setText("POKRAČOVAT");
         timerFac.stop();
         return 1;
-    } else { // if (ui->pbFacStart->text() == "CONTINUE")
-        ui->pbFacStart->setText("PAUSE");
+    } else { // if (ui->pbFacStart->text() == "POKRAČOVAT")
+        ui->pbFacStart->setText("POZASTAVIT");
         timerFac.start(100);
         return 0;
     }
@@ -112,15 +112,15 @@ short MainWindow::EraButtonSwitcher()
 {
     if(ui->pbEraStart->text() == "START"){
         timerEra.start(100);
-        ui->pbEraStart->setText("PAUSE");
+        ui->pbEraStart->setText("POZASTAVIT");
         ui->pbEraStop->setEnabled(1);
         return 2;
-    } else if (ui->pbEraStart->text() == "PAUSE") {
-        ui->pbEraStart->setText("CONTINUE");
+    } else if (ui->pbEraStart->text() == "POZASTAVIT") {
+        ui->pbEraStart->setText("POKRAČOVAT");
         timerEra.stop();
         return 1;
-    } else { // if (ui->pbEraStart->text() == "CONTINUE")
-        ui->pbEraStart->setText("PAUSE");
+    } else { // if (ui->pbEraStart->text() == "POKRAČOVAT")
+        ui->pbEraStart->setText("POZASTAVIT");
         timerEra.start(100);
         return 0;
     }
