@@ -30,7 +30,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="sbFacNum"/>
+       <widget class="QSpinBox" name="sbFacNum">
+        <property name="maximum">
+         <number>20</number>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -76,7 +80,7 @@
         <item>
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>Zbývající doba:</string>
+           <string>Odhadovaná zbývající doba:</string>
           </property>
          </widget>
         </item>
@@ -185,7 +189,7 @@
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Zbývající doba:</string>
+           <string>Odhadovaná zbývající doba:</string>
           </property>
          </widget>
         </item>
@@ -228,9 +232,38 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuSoubor">
+    <property name="title">
+     <string>Soubor</string>
+    </property>
+    <addaction name="actionKonec"/>
+   </widget>
+   <addaction name="menuSoubor"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionKonec">
+   <property name="text">
+    <string>Konec</string>
+   </property>
+  </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionKonec</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>276</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
