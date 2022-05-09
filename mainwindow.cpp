@@ -26,6 +26,8 @@ void MainWindow::on_pbFacStart_clicked()
             factorial = new Factorial(ui->sbFacNum->text().toInt());
             connect(factorial, &Factorial::CalculationDone, this, &MainWindow::CalculationDoneFac);
             connect(factorial, &Factorial::UpdateBar, this, &MainWindow::GetProgressFac);
+            connect(factorial, &Factorial::Estimation, this, &MainWindow::EstimationFac);
+            estimationFac = 0;
             factorial->start();
         break;
         case 1:
@@ -43,6 +45,7 @@ void MainWindow::on_pbFacStart_clicked()
 void MainWindow::CalculationDoneFac(unsigned long long int result)
 {
     ui->labelFactResult->setText(QString::number(result));
+    ui->labelFacTimeLeft->setText("HOTOVO");
     MainWindow::on_pbFacStop_clicked();
 }
 
@@ -62,6 +65,12 @@ void MainWindow::GetProgressFac(double percentage)
 void MainWindow::GetProgressEra(double percentage)
 {
     ui->progressBarEra->setValue((int)percentage);
+}
+
+void MainWindow::EstimationFac(double time)
+{
+    estimationFac = time;
+    ui->labelFacTimeLeft->setText(QString::number(estimationFac/1000) + "s");
 }
 
 
@@ -147,6 +156,10 @@ void MainWindow::on_pbEraStop_clicked()
 void MainWindow::onTimerFac()
 {
       facMiliSecs+=100;
+      if(estimationFac != 0){
+          estimationFac-=100;
+      }
+      ui->labelFacTimeLeft->setText(QString::number(estimationFac/1000)+"s");
       ui->labelFacUptime->setText(QString::number((double)facMiliSecs/1000)+ "s");
 }
 

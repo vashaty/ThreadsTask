@@ -1,4 +1,5 @@
 #include "factorial.h"
+#define MSLEEP 500
 
 Factorial::Factorial(unsigned short int n)
 {
@@ -19,11 +20,17 @@ void Factorial::run()
 {
     while(temp <= N){
         locked = 1;
+        if(temp == 1)
+            timer.start();
         result *= temp;
         emit UpdateBar((double)temp/(double)N*100);
         temp++;
         locked = 0;
-        msleep(500);      
+        msleep(MSLEEP);
+        if(temp == 2){
+            emit Estimation((double)timer.elapsed() * ((double)N));
+        }
+
     }
     emit CalculationDone(result);
 

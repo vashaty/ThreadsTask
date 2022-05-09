@@ -26,6 +26,8 @@ private slots:
     void GetProgressFac(double percentage);
     void GetProgressEra(double percentage);
 
+    void EstimationFac(double time);
+
     void on_pbFacStop_clicked();
 
     void on_pbEraStart_clicked();
@@ -45,5 +47,6 @@ private:
     QTimer timerEra;
     int facMiliSecs = 0;
     int eraMiliSecs = 0;
+    double estimationFac = 0;
 };
 #endif // MAINWINDOW_H
