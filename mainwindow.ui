@@ -133,7 +133,11 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_7">
         <item>
-         <widget class="QSpinBox" name="sbEraNum"/>
+         <widget class="QSpinBox" name="sbEraNum">
+          <property name="maximum">
+           <number>9999</number>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -221,7 +225,7 @@
      <x>0</x>
      <y>0</y>
      <width>554</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

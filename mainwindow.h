@@ -27,6 +27,7 @@ private slots:
     void GetProgressEra(double percentage);
 
     void EstimationFac(double time);
+    void EstimationEra(double time);
 
     void on_pbFacStop_clicked();
 
@@ -48,5 +49,6 @@ private:
     int facMiliSecs = 0;
     int eraMiliSecs = 0;
     double estimationFac = 0;
+    double estimationEra = 0;
 };
 #endif // MAINWINDOW_H

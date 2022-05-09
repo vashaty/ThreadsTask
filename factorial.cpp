@@ -28,7 +28,7 @@ void Factorial::run()
         locked = 0;
         msleep(MSLEEP);
         if(temp == 2){
-            emit Estimation((double)timer.elapsed() * ((double)N));
+            emit Estimation((double)timer.elapsed() * ((double)N-1));
         }
 
     }

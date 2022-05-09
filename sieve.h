@@ -20,9 +20,11 @@ private:
     bool locked = 0;
     QList<unsigned int> results = {};
     QVector<unsigned int> arr;
+    QElapsedTimer timer;
 signals:
     void CalculationDone(QList<unsigned int> results);
     void UpdateBar(double percentage);
+    void Estimation(double time);
 };
 
 #endif // SIEVE_H

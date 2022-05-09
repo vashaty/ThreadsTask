@@ -51,6 +51,7 @@ void MainWindow::CalculationDoneFac(unsigned long long int result)
 
 void MainWindow::CalculationDoneSieve(QList<unsigned int> results)
 {
+    ui->labelEraTimeLeft->setText("HOTOVO");
     for(unsigned int x : results){
         ui->textEditEraRes->append(QString::number(x) + " ");
     }
@@ -71,6 +72,12 @@ void MainWindow::EstimationFac(double time)
 {
     estimationFac = time;
     ui->labelFacTimeLeft->setText(QString::number(estimationFac/1000) + "s");
+}
+
+void MainWindow::EstimationEra(double time)
+{
+    estimationEra = time;
+    ui->labelEraTimeLeft->setText(QString::number(estimationFac/1000) + "s");
 }
 
 
@@ -129,6 +136,7 @@ void MainWindow::on_pbEraStart_clicked()
             sieve = new Sieve(ui->sbEraNum->text().toInt());
             connect(sieve, &Sieve::CalculationDone, this, &MainWindow::CalculationDoneSieve);
             connect(sieve, &Sieve::UpdateBar, this, &MainWindow::GetProgressEra);
+            connect(sieve, &Sieve::Estimation, this, &MainWindow::EstimationEra);
             sieve->start();
         break;
         case 1:
@@ -166,6 +174,10 @@ void MainWindow::onTimerFac()
 void MainWindow::onTimerEra()
 {
     eraMiliSecs+=100;
+    if(estimationEra != 0){
+        estimationEra-=100;
+    }
+    ui->labelEraTimeLeft->setText(QString::number(estimationEra/1000)+"s");
     ui->labelEraUptime->setText(QString::number((double)eraMiliSecs/1000)+ "s");
 }
 

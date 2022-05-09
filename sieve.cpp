@@ -20,6 +20,8 @@ bool Sieve::isLocked()
 void Sieve::run()
 {
     while(temp1 < Range){
+        if(temp1 == 2)
+            timer.start();
         temp2 = temp1*temp1;
         while(temp2 < Range){
             locked = 1;
@@ -32,6 +34,9 @@ void Sieve::run()
         emit UpdateBar((double)temp1/(double)Range*0.85*100);
         locked = 0;
         msleep(200);
+        if(temp1 == 3){
+            emit Estimation((double)timer.elapsed() * ((double)Range-3));
+        }
     }
 
     while(temp3 < Range){
